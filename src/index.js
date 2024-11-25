@@ -5,8 +5,8 @@ import initMongoConnection from './db/initMongoConnection.js';
   try {
     await initMongoConnection();
     startServer();
-  } catch (err) {
-    console.error('Failed to initialize application', err);
+  } catch (error) {
+    console.error('Failed to initialize application:', error.message);
     process.exit(1);
   }
 })();
