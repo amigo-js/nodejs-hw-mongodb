@@ -31,6 +31,7 @@ export const startServer = () => {
 
   // Роут для Swagger документации
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+  app.use('/api-docs', swaggerDocs());
 
   app.use('*', notFoundHandler);
   app.use(errorHandler);
