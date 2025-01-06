@@ -1,127 +1,30 @@
 openapi: 3.1.0
 info:
   version: 1.0.0
-  title: Contacts API
+  title: Contacts App
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  description: API for managing contacts.
+  description: This is a documentation of contacts app
 tags:
   - name: Contacts
-    description: Operations related to contacts.
+    description: Operations about users.
 servers:
   - url: http://localhost:3000
+  - url: https://nodejs-hw-mongodb-lycy.onrender.com
 paths:
   /contacts:
     get:
-      tags:
-        - Contacts
-      summary: Get all contacts
-      operationId: getAllContacts
-      description: Retrieve a list of contacts for the logged-in user.
-      responses:
-        '200':
-          description: Successfully retrieved contacts.
-        '401':
-          description: Unauthorized.
+      $ref: '../swagger/paths/contacts/get.yaml'
     post:
-      tags:
-        - Contacts
-      summary: Create a contact
-      operationId: createContact
-      description: Create a new contact for the logged-in user.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                phoneNumber:
-                  type: string
-                email:
-                  type: string
-                isFavourite:
-                  type: boolean
-                contactType:
-                  type: string
-              required:
-                - name
-                - phoneNumber
-      responses:
-        '201':
-          description: Successfully created contact.
-        '401':
-          description: Unauthorized.
-  /contacts/{contactId}:
+      $ref: '../swagger/paths/contacts/post.yaml'
+  /contacts/{id}:
     get:
-      tags:
-        - Contacts
-      summary: Get contact by ID
-      operationId: getContactById
-      description: Retrieve a contact by its ID.
-      parameters:
-        - name: contactId
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Successfully retrieved contact.
-        '404':
-          description: Contact not found.
-    patch:
-      tags:
-        - Contacts
-      summary: Update a contact
-      operationId: updateContact
-      description: Update an existing contact by ID.
-      parameters:
-        - name: contactId
-          in: path
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                phoneNumber:
-                  type: string
-                email:
-                  type: string
-                isFavourite:
-                  type: boolean
-                contactType:
-                  type: string
-      responses:
-        '200':
-          description: Successfully updated contact.
-        '404':
-          description: Contact not found.
+      $ref: '../swagger/paths/contacts/{id}/get.yaml'
     delete:
-      tags:
-        - Contacts
-      summary: Delete a contact
-      operationId: deleteContact
-      description: Delete an existing contact by ID.
-      parameters:
-        - name: contactId
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '204':
-          description: Successfully deleted contact.
-        '404':
-          description: Contact not found.
+      $ref: '../swagger/paths/contacts/{id}/delete.yaml'
+    patch:
+      $ref: '../swagger/paths/contacts/{id}/patch.yaml'
 components:
   securitySchemes:
     bearerAuth:
