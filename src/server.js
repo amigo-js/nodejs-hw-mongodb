@@ -2,15 +2,15 @@ import express from 'express';
 import pino from 'pino-http';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import { createRequire } from 'module';
 import { env } from './utils/env.js';
 import contactsRouter from './routers/contacts.js';
 import authRouter from './routers/auth.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import swaggerUi from 'swagger-ui-express';
-import swaggerDocument from '../docs/swagger.json';
 
-// Используем require для импорта JSON
+// Используем createRequire для импорта JSON
 const require = createRequire(import.meta.url);
 const swaggerDocument = require('../docs/swagger.json');
 
@@ -33,7 +33,7 @@ export const startServer = () => {
   app.use('/contacts', contactsRouter);
   app.use('/auth', authRouter);
 
-  // Роут для Swagger документации
+  // Роут для отображения Swagger документации
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
   app.use('*', notFoundHandler);
