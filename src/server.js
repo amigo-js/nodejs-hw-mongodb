@@ -8,7 +8,11 @@ import authRouter from './routers/auth.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import swaggerUi from 'swagger-ui-express';
-import swaggerDocument from '../docs/swagger.json' assert { type: 'json' };
+import swaggerDocument from '../docs/swagger.json';
+
+// Используем require для импорта JSON
+const require = createRequire(import.meta.url);
+const swaggerDocument = require('../docs/swagger.json');
 
 const PORT = Number(env('PORT', '3000'));
 
@@ -31,7 +35,6 @@ export const startServer = () => {
 
   // Роут для Swagger документации
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-  app.use('/api-docs', swaggerDocs());
 
   app.use('*', notFoundHandler);
   app.use(errorHandler);
