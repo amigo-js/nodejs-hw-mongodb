@@ -7,6 +7,8 @@ import contactsRouter from './routers/contacts.js';
 import authRouter from './routers/auth.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from '../docs/swagger.json';
 
 const PORT = Number(env('PORT', '3000'));
 
@@ -26,6 +28,9 @@ export const startServer = () => {
 
   app.use('/contacts', contactsRouter);
   app.use('/auth', authRouter);
+
+  // Роут для Swagger документации
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
   app.use('*', notFoundHandler);
   app.use(errorHandler);

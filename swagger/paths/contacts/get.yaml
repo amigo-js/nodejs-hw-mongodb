@@ -1,0 +1,11 @@
+get:
+  tags:
+    - Contacts
+  summary: Get all contacts
+  operationId: getAllContacts
+  description: Retrieve a list of contacts for the logged-in user.
+  responses:
+    '200':
+      description: Successfully retrieved contacts.
+    '401':
+      description: Unauthorized.
