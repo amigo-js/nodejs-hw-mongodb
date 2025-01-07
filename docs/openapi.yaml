@@ -10,7 +10,7 @@ tags:
   - name: Contacts
     description: Operations related to contacts.
 servers:
-  - url: https://nodejs-hw-mongodb-lycy.onrender.com
+  - url: https://nodejs-hw-mongodb-13-rice.onrender.com
   - url: http://localhost:3000
 paths:
   /contacts:
