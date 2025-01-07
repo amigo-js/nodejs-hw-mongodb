@@ -24,13 +24,13 @@ router.get('/:contactId', isValidId, ctrlWrapper(getContactsByIdController));
 router.post(
   '/',
   validateBody(createContactsSchema),
-  ctrlWrapper(createContactController),
+  ctrlWrapper(createContactController)
 );
 router.patch(
   '/:contactId',
   isValidId,
   validateBody(updateContactsSchema),
-  ctrlWrapper(updateContactController),
+  ctrlWrapper(updateContactController)
 );
 router.delete('/:contactId', isValidId, ctrlWrapper(deleteContactController));
 

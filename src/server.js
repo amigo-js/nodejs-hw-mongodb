@@ -1,44 +1,62 @@
 import express from 'express';
 import pino from 'pino-http';
 import cors from 'cors';
+import { env } from './utils/env.js';
+import router from './routers/index.js';
+import { notFoundHandler } from './middlewares/notFoundHandler.js';
+import { errorHandler } from './middlewares/errorHandler.js';
 import cookieParser from 'cookie-parser';
+import { UPLOAD_DIR } from './constants/index.js';
 import swaggerUi from 'swagger-ui-express';
 import { createRequire } from 'module';
-import { env } from './utils/env.js';
-import contactsRouter from './routers/contacts.js';
-import authRouter from './routers/auth.js';
-import { errorHandler } from './middlewares/errorHandler.js';
-import { notFoundHandler } from './middlewares/notFoundHandler.js';
 
+// Используем require для импорта JSON
 const require = createRequire(import.meta.url);
 const swaggerDocument = require('../docs/swagger.json');
 
-const PORT = Number(env('PORT', '3000'));
+export async function setupServer() {
+  try {
+    const app = express();
+    const PORT = Number(env('PORT', '3000'));
 
-export const startServer = () => {
-  const app = express();
+    app.use(express.json());
+    app.use(cors());
+    app.use(cookieParser());
 
-  app.use(express.json());
-  app.use(cookieParser());
-  app.use(cors());
-  app.use(
-    pino({
-      transport: {
-        target: 'pino-pretty',
-      },
-    })
-  );
+    app.use(
+      pino({
+        transport: {
+          target: 'pino-pretty',
+        },
+      }),
+    );
 
-  app.use('/contacts', contactsRouter);
-  app.use('/auth', authRouter);
+    app.get('/', (req, res) => {
+      res.json({
+        message: 'Hello world',
+      });
+    });
 
-  // Add Swagger Documentation
-  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+    // Serve static files for uploads
+    app.use('/uploads', express.static(UPLOAD_DIR));
 
-  app.use('*', notFoundHandler);
-  app.use(errorHandler);
+    // Serve Swagger documentation
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-  app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-  });
-};
+    // Main API routes
+    app.use(router);
+
+    // Handle 404
+    app.use('*', notFoundHandler);
+
+    // General error handler
+    app.use(errorHandler);
+
+    // Start the server
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}

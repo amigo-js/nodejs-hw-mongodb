@@ -24,12 +24,12 @@ router.post('/refresh', refresh);
 router.post(
   '/send-reset-email',
   validateBody(requestResetEmailSchema),
-  sendResetEmailController,
+  sendResetEmailController
 );
 router.post(
   '/reset-pwd',
   validateBody(resetPasswordSchema),
-  resetPasswordController,
+  resetPasswordController
 );
 
 export default router;
