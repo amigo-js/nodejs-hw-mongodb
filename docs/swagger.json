@@ -11,7 +11,7 @@
   },
   "servers": [
     {
-      "url": "https://nodejs-hw-mongodb-lycy.onrender.com"
+      "url": "https://nodejs-hw-mongodb-13-rice.onrender.com"
     },
     {
       "url": "http://localhost:3000"
@@ -26,9 +26,7 @@
   "paths": {
     "/contacts": {
       "get": {
-        "tags": [
-          "Contacts"
-        ],
+        "tags": ["Contacts"],
         "summary": "Get list of contacts",
         "operationId": "getContacts",
         "description": "Get list of contacts for the logged-in user",
@@ -67,10 +65,7 @@
             "name": "sortOrder",
             "schema": {
               "type": "string",
-              "enum": [
-                "asc",
-                "desc"
-              ]
+              "enum": ["asc", "desc"]
             },
             "example": "asc"
           }
@@ -108,9 +103,7 @@
         }
       },
       "post": {
-        "tags": [
-          "Contacts"
-        ],
+        "tags": ["Contacts"],
         "summary": "Create a new contact",
         "operationId": "createContact",
         "description": "Create a new contact for the logged-in user",
@@ -139,22 +132,14 @@
                   },
                   "contactType": {
                     "type": "string",
-                    "enum": [
-                      "work",
-                      "home",
-                      "personal"
-                    ]
+                    "enum": ["work", "home", "personal"]
                   },
                   "photo": {
                     "type": "string",
                     "format": "binary"
                   }
                 },
-                "required": [
-                  "name",
-                  "phoneNumber",
-                  "contactType"
-                ]
+                "required": ["name", "phoneNumber", "contactType"]
               }
             }
           }
@@ -191,9 +176,7 @@
     },
     "/contacts/{contactId}": {
       "get": {
-        "tags": [
-          "Contacts"
-        ],
+        "tags": ["Contacts"],
         "summary": "Get contact by ID",
         "operationId": "getContactById",
         "description": "Retrieve a contact by its ID",
@@ -237,9 +220,7 @@
         }
       },
       "patch": {
-        "tags": [
-          "Contacts"
-        ],
+        "tags": ["Contacts"],
         "summary": "Update contact by ID",
         "operationId": "updateContact",
         "description": "Update contact details by ID",
@@ -273,11 +254,7 @@
                   },
                   "contactType": {
                     "type": "string",
-                    "enum": [
-                      "work",
-                      "home",
-                      "personal"
-                    ]
+                    "enum": ["work", "home", "personal"]
                   },
                   "photo": {
                     "type": "string",
@@ -318,9 +295,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "Contacts"
-        ],
+        "tags": ["Contacts"],
         "summary": "Delete contact by ID",
         "operationId": "deleteContact",
         "description": "Delete a contact by ID",
