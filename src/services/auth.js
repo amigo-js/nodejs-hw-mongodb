@@ -77,8 +77,7 @@ export const refreshUsersSession = async ({ sessionId, refreshToken }) => {
     throw createHttpError(401, 'Invalid session or token');
   }
 
-  const isTokenExpired =
-    new Date() > new Date(session.refreshTokenValidUntil);
+  const isTokenExpired = new Date() > new Date(session.refreshTokenValidUntil);
 
   if (isTokenExpired) {
     throw createHttpError(401, 'Refresh token expired');
@@ -102,9 +101,6 @@ export const refreshUsersSession = async ({ sessionId, refreshToken }) => {
 
 // Отправка токена сброса пароля
 export const requestResetToken = async (email) => {
-  console.log('SMTP_FROM:', env('SMTP_FROM'));
-  console.log('APP_DOMAIN:', env('APP_DOMAIN'));
-
   const user = await User.findOne({ email });
   if (!user) {
     throw createHttpError(404, 'User not found!');

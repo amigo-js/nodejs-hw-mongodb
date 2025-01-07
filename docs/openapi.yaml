@@ -10,6 +10,7 @@ tags:
   - name: Contacts
     description: Operations related to contacts.
 servers:
+  - url: https://nodejs-hw-mongodb-lycy.onrender.com
   - url: http://localhost:3000
 paths:
   /contacts:
@@ -32,7 +33,7 @@ paths:
       description: Create a new contact for the logged-in user.
       requestBody:
         content:
-          application/json:
+          multipart/form-data:
             schema:
               type: object
               properties:
@@ -46,9 +47,13 @@ paths:
                   type: boolean
                 contactType:
                   type: string
+                photo:
+                  type: string
+                  format: binary
               required:
                 - name
                 - phoneNumber
+                - contactType
       responses:
         '201':
           description: Successfully created contact.
@@ -86,7 +91,7 @@ paths:
             type: string
       requestBody:
         content:
-          application/json:
+          multipart/form-data:
             schema:
               type: object
               properties:
@@ -100,6 +105,9 @@ paths:
                   type: boolean
                 contactType:
                   type: string
+                photo:
+                  type: string
+                  format: binary
       responses:
         '200':
           description: Successfully updated contact.
